@@ -116,6 +116,12 @@ const updateExperience = (event, key, index) => {
 const updateExperienceDescription = (event, index1, index2) => {
   experience.value[index1]['description'][index2] = event.target.innerText
 }
+const updateEducation = (event, key, index) => {
+  education.value[index][key] = event.target.innerText
+}
+const updateEducationDescription = (event, index1, index2) => {
+  education.value[index1]['description'][index2] = event.target.innerText
+}
 </script>
 
 <template>
@@ -216,7 +222,7 @@ const updateExperienceDescription = (event, index1, index2) => {
                 v-for="(desc, innerIndex) in exp.description"
                 :key="innerIndex"
                 contenteditable="true"
-                @input="updateExperienceDescription($event, index, innerIndex)"
+                @blur="updateExperienceDescription($event, index, innerIndex)"
               >
                 {{ desc }}
               </li>
@@ -230,13 +236,32 @@ const updateExperienceDescription = (event, index1, index2) => {
           </h4>
 
           <div v-for="(item, index) in education" :key="index" class="inner-section">
-            <div>{{ item.title }}</div>
+            <div contenteditable="true" @blur="updateEducation($event, 'title', index)">
+              {{ item.title }}
+            </div>
             <div class="d-flex justify-content-between">
-              <div>{{ item.university }}, {{ item.location }}</div>
-              <div>{{ item.date }}</div>
+              <div>
+                <span contenteditable="true" @blur="updateEducation($event, 'university', index)">
+                  {{ item.university }} </span
+                >,
+                <span contenteditable="true" @blur="updateEducation($event, 'location', index)">
+                  {{ item.location }}
+                </span>
+              </div>
+
+              <div contenteditable="true" @blur="updateEducation($event, 'date', index)">
+                {{ item.date }}
+              </div>
             </div>
             <ul>
-              <li v-for="(desc, innerIndex) in item.description" :key="innerIndex">{{ desc }}</li>
+              <li
+                v-for="(desc, innerIndex) in item.description"
+                :key="innerIndex"
+                contenteditable="true"
+                @blur="updateEducationDescription($event, index, innerIndex)"
+              >
+                {{ desc }}
+              </li>
             </ul>
           </div>
         </div>
