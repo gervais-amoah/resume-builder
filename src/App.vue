@@ -1,14 +1,24 @@
+<script setup>
+import { ref } from 'vue'
+
+const name = ref("Michaela Scarn")
+const title = ref("Senior Data Scientist")
+const imageUrl = ref('/profile_pic.jpg')
+const introText = ref("From data cleaning to data analysis to machine learning, I am passionate about everything data.")
+</script>
+
 <template>
   <main class="container">
     <div id="resume" class="d-flex">
       <div class="left-col">
         <div class="resume-section">
+          <img :src="imageUrl" class="profile-pic" alt="profile picture">
+
           <h4 class="section-headline">
             About me
           </h4>
           <div>
-            From data cleaning to data analysis to machine learning,
-            I am passionate about everything data.
+            {{ introText }}
           </div>
         </div>
 
@@ -49,10 +59,10 @@
 
       <div class="right-col">
         <div class="personal-name">
-          Michaela Scarn
+          {{ name }}
         </div>
         <div class="personal-title">
-          Senior Data Scientist
+          {{ title }}
         </div>
 
         <div class="resume-section">
@@ -179,5 +189,17 @@
   padding-inline-start: 16px;
   margin-block-end: 0px;
   margin-block-start: 5px;
+}
+
+.profile-pic {
+  display: block;
+  width: 160px;
+  height: 160px;
+  border: 5px solid var(--highlight-color-left);
+  margin-bottom: 20px;
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 50%;
 }
 </style>
