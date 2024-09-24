@@ -1,83 +1,91 @@
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 const personnalInfo = ref({
-  name: "Michaela Scarn",
-  title: "Senior Data Scientist",
-  introText: "From data cleaning to data analysis to machine learning, I am passionate about everything data.",
+  name: 'Michaela Scarn',
+  title: 'Senior Data Scientist',
+  introText:
+    'From data cleaning to data analysis to machine learning, I am passionate about everything data.'
 })
 const imageUrl = ref('/profile_pic.jpg')
-const headlines = ref(["About me", "Contact", "Skills", "Certifications", "Experience", "Education"])
+const headlines = ref([
+  'About me',
+  'Contact',
+  'Skills',
+  'Certifications',
+  'Experience',
+  'Education'
+])
 const contact = ref({
-  phone: "15713909584",
-  email: "contact@gmail.com",
-  address: "Main St 100, 19777 NY"
-});
+  phone: '15713909584',
+  email: 'contact@gmail.com',
+  address: 'Main St 100, 19777 NY'
+})
 const skills = ref([
-  "Python",
-  "Pandas",
-  "SQL",
-  "R",
-  "AI",
-  "C++",
-  "Machine Learning",
-  "Hadoop",
-  "TensorFlow",
-  "PyTorch",
-  "NLP"
-]);
+  'Python',
+  'Pandas',
+  'SQL',
+  'R',
+  'AI',
+  'C++',
+  'Machine Learning',
+  'Hadoop',
+  'TensorFlow',
+  'PyTorch',
+  'NLP'
+])
 const experience = ref([
   {
-    title: "Senior Data Scientist",
-    company: "ABC Analytics Inc.",
-    location: "London",
-    date: "2022 - Present",
+    title: 'Senior Data Scientist',
+    company: 'ABC Analytics Inc.',
+    location: 'London',
+    date: '2022 - Present',
     description: [
-      "Led a team of data scientists in developing advanced machine learning models for predictive analytics",
-      "Designed and implemented a recommendation system that boosted cross-selling, leading to a 20% increase in revenue",
-      "Conducted A/B testing and statistical analysis to optimize product features"
+      'Led a team of data scientists in developing advanced machine learning models for predictive analytics',
+      'Designed and implemented a recommendation system that boosted cross-selling, leading to a 20% increase in revenue',
+      'Conducted A/B testing and statistical analysis to optimize product features'
     ]
   },
   {
-    title: "Data Scientist",
-    company: "XYZ Data Solutions",
-    location: "London",
-    date: "2017 - 2019",
+    title: 'Data Scientist',
+    company: 'XYZ Data Solutions',
+    location: 'London',
+    date: '2017 - 2019',
     description: [
-      "Developed and deployed machine learning models for fraud detection, reducing fraudulent transactions by 18%",
-      "Conducted in-depth exploratory data analysis to identify key trends and insights",
-      "Worked on data preprocessing, feature engineering, and model selection to improve model performance"
+      'Developed and deployed machine learning models for fraud detection, reducing fraudulent transactions by 18%',
+      'Conducted in-depth exploratory data analysis to identify key trends and insights',
+      'Worked on data preprocessing, feature engineering, and model selection to improve model performance'
     ]
   },
   {
-    title: "Data Scientist Trainee",
-    company: "Data Insights Ltd.",
-    location: "New York City",
-    date: "2016-2017",
+    title: 'Data Scientist Trainee',
+    company: 'Data Insights Ltd.',
+    location: 'New York City',
+    date: '2016-2017',
     description: [
       "Collaborated with external partners to integrate third-party data sources, expanding the company's data assets and enhancing predictive modeling capabilities.",
-      "Presented data-driven insights and recommendations to executive leadership, influencing strategic decisions and driving revenue growth."
+      'Presented data-driven insights and recommendations to executive leadership, influencing strategic decisions and driving revenue growth.'
     ]
   }
-]);
+])
 const education = ref([
   {
-    title: "Master of Science in Data Science",
-    university: "StellarTech University",
-    location: "Starville",
-    date: "2020-2022",
+    title: 'Master of Science in Data Science',
+    university: 'StellarTech University',
+    location: 'Starville',
+    date: '2020-2022',
     description: [
-      "Coursework included advanced machine learning, statistical modeling, and data visualization techniques.",
+      'Coursework included advanced machine learning, statistical modeling, and data visualization techniques.',
       "Thesis: 'Predictive Modeling for Customer Churn in E-commerce using Random Forest.'"
     ]
   },
   {
-    title: "Bachelor of Science in Computer Science",
-    university: "Evergreen State University",
-    location: "Springdale",
-    date: "2012-2015",
+    title: 'Bachelor of Science in Computer Science',
+    university: 'Evergreen State University',
+    location: 'Springdale',
+    date: '2012-2015',
     description: [
-      "Relevant coursework in database management, algorithms, and programming languages.",
+      'Relevant coursework in database management, algorithms, and programming languages.',
       "Senior project: 'Development of a Recommender System for Movie Ratings.'"
     ]
   }
@@ -87,13 +95,11 @@ const updateHeadline = (event, index) => {
   headlines.value[index] = event.target.innerText
 }
 const updatePersonnalInfo = (event, key) => {
-  personnalInfo.value[key] = event.target.innerText;
+  personnalInfo.value[key] = event.target.innerText
 }
 const updateContact = (event, key) => {
-  contact.value[key] = event.target.innerText;
+  contact.value[key] = event.target.innerText
 }
-
-
 </script>
 
 <template>
@@ -101,7 +107,7 @@ const updateContact = (event, key) => {
     <div id="resume" class="d-flex">
       <div class="left-col">
         <div class="resume-section">
-          <img :src="imageUrl" class="profile-pic" alt="profile picture">
+          <img :src="imageUrl" class="profile-pic" alt="profile picture" />
 
           <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 0)">
             {{ headlines[0] }}
@@ -166,7 +172,6 @@ const updateContact = (event, key) => {
                 {{ desc }}
               </li>
             </ul>
-
           </div>
         </div>
 
@@ -193,7 +198,9 @@ const updateContact = (event, key) => {
 
 <style scoped>
 #resume {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  box-shadow:
+    rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
   /* DIN A4 standard paper size. commonly used for resumes
   For North America letter size use width: 8.5in; height: 11in; */
   height: 297mm;
