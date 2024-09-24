@@ -5,6 +5,7 @@ const name = ref("Michaela Scarn")
 const title = ref("Senior Data Scientist")
 const imageUrl = ref('/profile_pic.jpg')
 const introText = ref("From data cleaning to data analysis to machine learning, I am passionate about everything data.")
+const headlines = ["About me", "Contact", "Skills", "Certifications", "Experience", "Education"]
 </script>
 
 <template>
@@ -15,7 +16,7 @@ const introText = ref("From data cleaning to data analysis to machine learning, 
           <img :src="imageUrl" class="profile-pic" alt="profile picture">
 
           <h4 class="section-headline">
-            About me
+            {{ headlines[0] }}
           </h4>
           <div>
             {{ introText }}
@@ -24,7 +25,7 @@ const introText = ref("From data cleaning to data analysis to machine learning, 
 
         <div class="resume-section">
           <h4 class="section-headline">
-            Contact
+            {{ headlines[1] }}
           </h4>
           <ul>
             <li>15713909584</li>
@@ -35,7 +36,7 @@ const introText = ref("From data cleaning to data analysis to machine learning, 
 
         <div class="resume-section">
           <h4 class="section-headline">
-            Skills
+            {{ headlines[2] }}
           </h4>
           <ul>
             <li>Python</li>
@@ -48,7 +49,7 @@ const introText = ref("From data cleaning to data analysis to machine learning, 
 
         <div class="resume-section">
           <h4 class="section-headline">
-            Certifications
+            {{ headlines[3] }}
           </h4>
           <ul>
             <li>Natural Language Processing with Python (Coursera)</li>
@@ -67,7 +68,7 @@ const introText = ref("From data cleaning to data analysis to machine learning, 
 
         <div class="resume-section">
           <h4 class="section-headline">
-            Experience
+            {{ headlines[4] }}
           </h4>
           <div>Senior Data Scientist</div>
           <div>ABC Analytics Inc., London, 2022 - Present</div>
@@ -95,7 +96,7 @@ const introText = ref("From data cleaning to data analysis to machine learning, 
 
         <div class="resume-section">
           <h4 class="section-headline">
-            Education
+            {{ headlines[5] }}
           </h4>
           <div>Master of Science in Data Science</div>
           <div>StellarTech University, Starville, 2020-2022</div>
