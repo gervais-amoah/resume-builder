@@ -1,11 +1,87 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 
 const name = ref("Michaela Scarn")
 const title = ref("Senior Data Scientist")
 const imageUrl = ref('/profile_pic.jpg')
 const introText = ref("From data cleaning to data analysis to machine learning, I am passionate about everything data.")
 const headlines = ["About me", "Contact", "Skills", "Certifications", "Experience", "Education"]
+const contact = ref({
+  phone: "15713909584",
+  email: "contact@gmail.com",
+  address: "Main St 100, 19777 NY"
+});
+const skills = ref([
+  "Python",
+  "Pandas",
+  "SQL",
+  "R",
+  "AI",
+  "C++",
+  "Machine Learning",
+  "Hadoop",
+  "TensorFlow",
+  "PyTorch",
+  "NLP"
+]);
+const experience = ref([
+  {
+    title: "Senior Data Scientist",
+    company: "ABC Analytics Inc.",
+    location: "London",
+    date: "2022 - Present",
+    description: [
+      "Led a team of data scientists in developing advanced machine learning models for predictive analytics",
+      "Designed and implemented a recommendation system that boosted cross-selling, leading to a 20% increase in revenue",
+      "Conducted A/B testing and statistical analysis to optimize product features"
+    ]
+  },
+  {
+    title: "Data Scientist",
+    company: "XYZ Data Solutions",
+    location: "London",
+    date: "2017 - 2019",
+    description: [
+      "Developed and deployed machine learning models for fraud detection, reducing fraudulent transactions by 18%",
+      "Conducted in-depth exploratory data analysis to identify key trends and insights",
+      "Worked on data preprocessing, feature engineering, and model selection to improve model performance"
+    ]
+  },
+  {
+    title: "Data Scientist Trainee",
+    company: "Data Insights Ltd.",
+    location: "New York City",
+    date: "2016-2017",
+    description: [
+      "Collaborated with external partners to integrate third-party data sources, expanding the company's data assets and enhancing predictive modeling capabilities.",
+      "Presented data-driven insights and recommendations to executive leadership, influencing strategic decisions and driving revenue growth."
+    ]
+  }
+]);
+const education = ref([
+  {
+    title: "Master of Science in Data Science",
+    university: "StellarTech University",
+    location: "Starville",
+    date: "2020-2022",
+    description: [
+      "Coursework included advanced machine learning, statistical modeling, and data visualization techniques.",
+      "Thesis: 'Predictive Modeling for Customer Churn in E-commerce using Random Forest.'"
+    ]
+  },
+  {
+    title: "Bachelor of Science in Computer Science",
+    university: "Evergreen State University",
+    location: "Springdale",
+    date: "2012-2015",
+    description: [
+      "Relevant coursework in database management, algorithms, and programming languages.",
+      "Senior project: 'Development of a Recommender System for Movie Ratings.'"
+    ]
+  }
+])
+
+
 </script>
 
 <template>
@@ -28,9 +104,9 @@ const headlines = ["About me", "Contact", "Skills", "Certifications", "Experienc
             {{ headlines[1] }}
           </h4>
           <ul>
-            <li>15713909584</li>
-            <li>contact@gmail.com</li>
-            <li>Main St 100, 19777 NY</li>
+            <li>{{ contact.phone }}</li>
+            <li>{{ contact.email }}</li>
+            <li>{{ contact.address }}</li>
           </ul>
         </div>
 
@@ -39,11 +115,7 @@ const headlines = ["About me", "Contact", "Skills", "Certifications", "Experienc
             {{ headlines[2] }}
           </h4>
           <ul>
-            <li>Python</li>
-            <li>Pandas</li>
-            <li>SQL</li>
-            <li>R</li>
-            <li>Machine Learning</li>
+            <li v-for="skill in skills" :key="skill">{{ skill }}</li>
           </ul>
         </div>
 
@@ -70,50 +142,36 @@ const headlines = ["About me", "Contact", "Skills", "Certifications", "Experienc
           <h4 class="section-headline">
             {{ headlines[4] }}
           </h4>
-          <div>Senior Data Scientist</div>
-          <div>ABC Analytics Inc., London, 2022 - Present</div>
-          <ul>
-            <li>
-              Led a team of data scientists in developing advanced machine learning models for predictive analytics
-            </li>
-            <li>
-              Designed and implemented a recommendation system that boosted cross-selling, leading to a 20% increase in
-              revenue
-            </li>
-          </ul>
-          <div>Data Scientist</div>
-          <div>XYZ Data Solutions, London, 2022 - Present</div>
-          <ul>
-            <li>
-              Developed and deployed machine learning models for fraud detection, reducing fraudulent transactions by
-              18%
-            </li>
-            <li>
-              Conducted in-depth exploratory data analysis to identify key trends and insights
-            </li>
-          </ul>
+          <div v-for="exp in experience" :key="exp.title" class="inner-section">
+            <div>{{ exp.title }}</div>
+            <div class="d-flex justify-content-between">
+              <div>{{ exp.company }}, {{ exp.location }}</div>
+              <div>{{ exp.date }}</div>
+            </div>
+            <ul>
+              <li v-for="(desc, index) in exp.description" :key="index">
+                {{ desc }}
+              </li>
+            </ul>
+
+          </div>
         </div>
 
         <div class="resume-section">
           <h4 class="section-headline">
             {{ headlines[5] }}
           </h4>
-          <div>Master of Science in Data Science</div>
-          <div>StellarTech University, Starville, 2020-2022</div>
-          <ul>
-            <li>
-              Coursework included advanced machine learning, statistical modeling, and data visualization techniques.
-            </li>
-            <li>
-              Thesis: 'Predictive Modeling for Customer Churn in E-commerce using Random Forest.'
-            </li>
-          </ul>
-          <div>Bachelor of Science in Computer Science</div>
-          <div>Evergreen State University, Springdale, 2012-2015</div>
-          <ul>
-            <li>Relevant coursework in database management, algorithms, and programming languages.</li>
-            <li>Senior project: 'Development of a Recommender System for Movie Ratings.'</li>
-          </ul>
+
+          <div v-for="(item, index) in education" :key="index" class="inner-section">
+            <div>{{ item.title }}</div>
+            <div class="d-flex justify-content-between">
+              <div>{{ item.university }}, {{ item.location }}</div>
+              <div>{{ item.date }}</div>
+            </div>
+            <ul>
+              <li v-for="(desc, innerIndex) in item.description" :key="innerIndex">{{ desc }}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -202,5 +260,9 @@ const headlines = ["About me", "Contact", "Skills", "Certifications", "Experienc
   margin-left: auto;
   margin-right: auto;
   border-radius: 50%;
+}
+
+.inner-section {
+  margin-bottom: 20px;
 }
 </style>
