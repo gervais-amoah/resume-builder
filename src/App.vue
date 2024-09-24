@@ -97,7 +97,10 @@ const updateHeadline = (event, index) => {
 const updatePersonnalInfo = (event, key) => {
   personnalInfo.value[key] = event.target.innerText
 }
-const updateContact = (event, key) => {
+const updateContact = (event, index) => {
+  contact.value[index] = event.target.innerText
+}
+const updateSkill = (event, key) => {
   contact.value[key] = event.target.innerText
 }
 </script>
@@ -134,7 +137,8 @@ const updateContact = (event, key) => {
             {{ headlines[2] }}
           </h4>
           <ul>
-            <li v-for="skill in skills" :key="skill">{{ skill }}</li>
+            <li v-for="(skill, index) in skills" :key="index" contenteditable @blur="updateSkill($event, index)">{{
+              skill }}</li>
           </ul>
         </div>
 
