@@ -21,6 +21,10 @@ const contact = ref({
   email: 'contact@gmail.com',
   address: 'Main St 100, 19777 NY'
 })
+const highlights = ref([
+  'Natural Language Processing with Python (Coursera)',
+  'Recommendation Systems with TensorFlow on GCP (Google)'
+])
 const skills = ref([
   'Python',
   'Pandas',
@@ -103,6 +107,9 @@ const updateContact = (event, index) => {
 const updateSkill = (event, key) => {
   contact.value[key] = event.target.innerText
 }
+const updateHighlights = (event, key) => {
+  highlights.value[key] = event.target.innerText
+}
 </script>
 
 <template>
@@ -137,8 +144,14 @@ const updateSkill = (event, key) => {
             {{ headlines[2] }}
           </h4>
           <ul>
-            <li v-for="(skill, index) in skills" :key="index" contenteditable @blur="updateSkill($event, index)">{{
-              skill }}</li>
+            <li
+              v-for="(skill, index) in skills"
+              :key="index"
+              contenteditable
+              @blur="updateSkill($event, index)"
+            >
+              {{ skill }}
+            </li>
           </ul>
         </div>
 
@@ -147,14 +160,25 @@ const updateSkill = (event, key) => {
             {{ headlines[3] }}
           </h4>
           <ul>
-            <li>Natural Language Processing with Python (Coursera)</li>
-            <li>Recommendation Systems with TensorFlow on GCP (Google)</li>
+            <li
+              v-for="(hlItem, index) in highlights"
+              :key="index"
+              contenteditable
+              @blur="updateHighlights($event, index)"
+            >
+              {{ hlItem }}
+            </li>
           </ul>
         </div>
       </div>
 
       <div class="right-col">
-        <div class="personal-name" :spellcheck="false" contenteditable @blur="updatePersonnalInfo($event, 'name')">
+        <div
+          class="personal-name"
+          :spellcheck="false"
+          contenteditable
+          @blur="updatePersonnalInfo($event, 'name')"
+        >
           {{ personnalInfo.name }}
         </div>
         <div class="personal-title" contenteditable @blur="updatePersonnalInfo($event, 'title')">
