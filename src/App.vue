@@ -1,11 +1,13 @@
 <script setup>
 import { ref } from 'vue';
 
-const name = ref("Michaela Scarn")
-const title = ref("Senior Data Scientist")
+const personnalInfo = ref({
+  name: "Michaela Scarn",
+  title: "Senior Data Scientist",
+  introText: "From data cleaning to data analysis to machine learning, I am passionate about everything data.",
+})
 const imageUrl = ref('/profile_pic.jpg')
-const introText = ref("From data cleaning to data analysis to machine learning, I am passionate about everything data.")
-const headlines = ["About me", "Contact", "Skills", "Certifications", "Experience", "Education"]
+const headlines = ref(["About me", "Contact", "Skills", "Certifications", "Experience", "Education"])
 const contact = ref({
   phone: "15713909584",
   email: "contact@gmail.com",
@@ -81,6 +83,16 @@ const education = ref([
   }
 ])
 
+const updateHeadline = (event, index) => {
+  headlines.value[index] = event.target.innerText
+}
+const updatePersonnalInfo = (event, key) => {
+  personnalInfo.value[key] = event.target.innerText;
+}
+const updateContact = (event, key) => {
+  contact.value[key] = event.target.innerText;
+}
+
 
 </script>
 
@@ -91,27 +103,28 @@ const education = ref([
         <div class="resume-section">
           <img :src="imageUrl" class="profile-pic" alt="profile picture">
 
-          <h4 class="section-headline">
+          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 0)">
             {{ headlines[0] }}
           </h4>
-          <div>
-            {{ introText }}
+          <span># {{ personnalInfo.name }}</span>
+          <div contenteditable @blur="updatePersonnalInfo($event, 'introText')">
+            {{ personnalInfo.introText }}
           </div>
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">
+          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 1)">
             {{ headlines[1] }}
           </h4>
           <ul>
-            <li>{{ contact.phone }}</li>
-            <li>{{ contact.email }}</li>
-            <li>{{ contact.address }}</li>
+            <li contenteditable @blur="updateContact($event, 'phone')">{{ contact.phone }}</li>
+            <li contenteditable @blur="updateContact($event, 'email')">{{ contact.email }}</li>
+            <li contenteditable @blur="updateContact($event, 'address')">{{ contact.address }}</li>
           </ul>
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">
+          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 2)">
             {{ headlines[2] }}
           </h4>
           <ul>
@@ -120,7 +133,7 @@ const education = ref([
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">
+          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 3)">
             {{ headlines[3] }}
           </h4>
           <ul>
@@ -131,15 +144,15 @@ const education = ref([
       </div>
 
       <div class="right-col">
-        <div class="personal-name">
-          {{ name }}
+        <div class="personal-name" :spellcheck="false" contenteditable @blur="updatePersonnalInfo($event, 'name')">
+          {{ personnalInfo.name }}
         </div>
-        <div class="personal-title">
-          {{ title }}
+        <div class="personal-title" contenteditable @blur="updatePersonnalInfo($event, 'title')">
+          {{ personnalInfo.title }}
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">
+          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 4)">
             {{ headlines[4] }}
           </h4>
           <div v-for="exp in experience" :key="exp.title" class="inner-section">
@@ -158,7 +171,7 @@ const education = ref([
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline">
+          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 5)">
             {{ headlines[5] }}
           </h4>
 
