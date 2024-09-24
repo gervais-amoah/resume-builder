@@ -110,6 +110,12 @@ const updateSkill = (event, key) => {
 const updateHighlights = (event, key) => {
   highlights.value[key] = event.target.innerText
 }
+const updateExperience = (event, key, index) => {
+  experience.value[index][key] = event.target.innerText
+}
+const updateExperienceDescription = (event, index1, index2) => {
+  experience.value[index1]['description'][index2] = event.target.innerText
+}
 </script>
 
 <template>
@@ -189,14 +195,29 @@ const updateHighlights = (event, key) => {
           <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 4)">
             {{ headlines[4] }}
           </h4>
-          <div v-for="exp in experience" :key="exp.title" class="inner-section">
+          <div v-for="(exp, index) in experience" :key="index" class="inner-section">
             <div>{{ exp.title }}</div>
             <div class="d-flex justify-content-between">
-              <div>{{ exp.company }}, {{ exp.location }}</div>
-              <div>{{ exp.date }}</div>
+              <div>
+                <span contenteditable="true" @blur="updateExperience($event, 'company', index)">{{
+                  exp.company
+                }}</span
+                >,
+                <span contenteditable="true" @blur="updateExperience($event, 'location', index)">{{
+                  exp.location
+                }}</span>
+              </div>
+              <div contenteditable="true" @blur="updateExperience($event, 'date', index)">
+                {{ exp.date }}
+              </div>
             </div>
             <ul>
-              <li v-for="(desc, index) in exp.description" :key="index">
+              <li
+                v-for="(desc, innerIndex) in exp.description"
+                :key="innerIndex"
+                contenteditable="true"
+                @input="updateExperienceDescription($event, index, innerIndex)"
+              >
                 {{ desc }}
               </li>
             </ul>
