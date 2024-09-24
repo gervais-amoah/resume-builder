@@ -180,9 +180,4 @@
   margin-block-end: 0px;
   margin-block-start: 5px;
 }
-
-body {
-  font-family: sans-serif;
-  font-size: 16px;
-}
 </style>
