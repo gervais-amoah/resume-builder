@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import ResumeSection from '@/components/ResumeSection.vue'
+import SectionHeadline from './components/SectionHeadline.vue'
 
 const personnalInfo = ref({
   name: 'Michaela Scarn',
@@ -96,8 +97,8 @@ const education = ref([
   }
 ])
 
-const updateHeadline = (event, index) => {
-  headlines.value[index] = event.target.innerText
+const updateHeadline = (val, index) => {
+  headlines.value[index] = val
 }
 const updatePersonnalInfo = (event, key) => {
   personnalInfo.value[key] = event.target.innerText
@@ -134,9 +135,11 @@ const updateEducationDescription = (event, index1, index2) => {
         <ResumeSection>
           <img :src="imageUrl" class="profile-pic" alt="profile picture" />
 
-          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 0)">
-            {{ headlines[0] }}
-          </h4>
+          <SectionHeadline
+            :headlines="headlines[0]"
+            @headline-edited="(val) => updateHeadline(val, 0)"
+          />
+
           <span># {{ personnalInfo.name }}</span>
           <div contenteditable @blur="updatePersonnalInfo($event, 'introText')">
             {{ personnalInfo.introText }}
@@ -144,9 +147,10 @@ const updateEducationDescription = (event, index1, index2) => {
         </ResumeSection>
 
         <ResumeSection>
-          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 1)">
-            {{ headlines[1] }}
-          </h4>
+          <SectionHeadline
+            :headlines="headlines[1]"
+            @headline-edited="(val) => updateHeadline(val, 1)"
+          />
           <ul>
             <li contenteditable @blur="updateContact($event, 'phone')">{{ contact.phone }}</li>
             <li contenteditable @blur="updateContact($event, 'email')">{{ contact.email }}</li>
@@ -155,9 +159,10 @@ const updateEducationDescription = (event, index1, index2) => {
         </ResumeSection>
 
         <ResumeSection>
-          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 2)">
-            {{ headlines[2] }}
-          </h4>
+          <SectionHeadline
+            :headlines="headlines[2]"
+            @headline-edited="(val) => updateHeadline(val, 2)"
+          />
           <ul>
             <li
               v-for="(skill, index) in skills"
@@ -171,9 +176,11 @@ const updateEducationDescription = (event, index1, index2) => {
         </ResumeSection>
 
         <ResumeSection>
-          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 3)">
-            {{ headlines[3] }}
-          </h4>
+          <SectionHeadline
+            :headlines="headlines[3]"
+            @headline-edited="(val) => updateHeadline(val, 3)"
+          />
+
           <ul>
             <li
               v-for="(hlItem, index) in highlights"
@@ -201,9 +208,10 @@ const updateEducationDescription = (event, index1, index2) => {
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 4)">
-            {{ headlines[4] }}
-          </h4>
+          <SectionHeadline
+            :headlines="headlines[4]"
+            @headline-edited="(val) => updateHeadline(val, 4)"
+          />
           <div v-for="(exp, index) in experience" :key="index" class="inner-section">
             <div contenteditable="true" @blur="updateExperience($event, 'title', index)">
               {{ exp.title }}
@@ -236,9 +244,10 @@ const updateEducationDescription = (event, index1, index2) => {
         </div>
 
         <div class="resume-section">
-          <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 5)">
-            {{ headlines[5] }}
-          </h4>
+          <SectionHeadline
+            :headlines="headlines[5]"
+            @headline-edited="(val) => updateHeadline(val, 5)"
+          />
 
           <div v-for="(item, index) in education" :key="index" class="inner-section">
             <div contenteditable="true" @blur="updateEducation($event, 'title', index)">
@@ -299,25 +308,6 @@ const updateEducationDescription = (event, index1, index2) => {
   color: var(--text-color-right);
   width: 70%;
   padding: 30px;
-}
-
-.section-headline {
-  font-size: 20px;
-  font-weight: var(--headline-weight);
-  margin-bottom: 15px;
-  margin-top: 0;
-}
-
-.right-col .section-headline {
-  color: var(--highlight-color-right);
-}
-
-.left-col .section-headline {
-  border-bottom: 1px solid var(--highlight-color-left);
-  padding-bottom: 5px;
-  margin-right: -30px;
-  padding-right: 10px;
-  color: var(--highlight-color-left);
 }
 
 .personal-name {
