@@ -128,6 +128,32 @@ const updateEducation = (event, key, index) => {
 const updateEducationDescription = (event, index1, index2) => {
   education.value[index1]['description'][index2] = event.target.innerText
 }
+
+const addExperience = () => {
+  experience.value.unshift({
+    title: 'Job Title',
+    company: 'Company',
+    location: 'Location',
+    date: 'date range',
+    description: ['description']
+  })
+}
+const addEducation = () => {
+  education.value.unshift({
+    title: 'Education title',
+    university: 'University',
+    location: 'Location',
+    date: 'date range',
+    description: ['Summa cum laude, GPA 1.0']
+  })
+}
+
+const removeExperience = (index) => {
+  experience.value.splice(index, 1)
+}
+const removeEducation = (index) => {
+  education.value.splice(index, 1)
+}
 </script>
 
 <template>
@@ -171,6 +197,7 @@ const updateEducationDescription = (event, index1, index2) => {
               {{ skill }}
             </li>
           </ul>
+          <div v-if="!skills.length">No more item to remove</div>
           <EditButtons @add-click="skills.push('new entry')" @remove-click="skills.pop()" />
         </ResumeSection>
 
@@ -190,6 +217,7 @@ const updateEducationDescription = (event, index1, index2) => {
               {{ hlItem }}
             </li>
           </ul>
+          <div v-if="!highlights.length">No more item to remove</div>
           <EditButtons @add-click="highlights.push('new entry')" @remove-click="highlights.pop()" />
         </ResumeSection>
       </div>
@@ -207,14 +235,22 @@ const updateEducationDescription = (event, index1, index2) => {
           {{ personnalInfo.title }}
         </div>
 
-        <div class="resume-section">
-          <SectionHeadline
-            :headlines="headlines[4]"
-            @headline-edited="(val) => updateHeadline(val, 4)"
-          />
+        <ResumeSection>
+          <div class="d-flex justify-content-between">
+            <SectionHeadline
+              :headlines="headlines[4]"
+              @headline-edited="(val) => updateHeadline(val, 4)"
+            />
+            <EditButtons @add-click="addExperience" :show-remove-btn="false" />
+          </div>
+
+          <div v-if="!experience.length">Add an experience</div>
           <div v-for="(exp, index) in experience" :key="index" class="inner-section">
-            <div contenteditable="true" @blur="updateExperience($event, 'title', index)">
-              {{ exp.title }}
+            <div class="inner-section-heading">
+              <span contenteditable="true" @blur="updateExperience($event, 'title', index)">
+                {{ exp.title }}
+              </span>
+              <EditButtons @remove-click="removeExperience(index)" :show-add-btn="false" />
             </div>
             <div class="d-flex justify-content-between">
               <div>
@@ -240,22 +276,31 @@ const updateEducationDescription = (event, index1, index2) => {
                 {{ desc }}
               </li>
             </ul>
+
+            <div v-if="!exp.description.length">Add some description</div>
             <EditButtons
+              :show-remove-btn="!!exp.description.length"
               @add-click="exp.description.push('new entry')"
               @remove-click="exp.description.pop()"
             />
           </div>
-        </div>
+        </ResumeSection>
 
-        <div class="resume-section">
-          <SectionHeadline
-            :headlines="headlines[5]"
-            @headline-edited="(val) => updateHeadline(val, 5)"
-          />
-
+        <ResumeSection>
+          <div class="d-flex justify-content-between">
+            <SectionHeadline
+              :headlines="headlines[5]"
+              @headline-edited="(val) => updateHeadline(val, 5)"
+            />
+            <EditButtons @add-click="addEducation" :show-remove-btn="false" />
+          </div>
+          <div v-if="!education.length">Add an education</div>
           <div v-for="(item, index) in education" :key="index" class="inner-section">
-            <div contenteditable="true" @blur="updateEducation($event, 'title', index)">
-              {{ item.title }}
+            <div class="inner-section-heading">
+              <span contenteditable="true" @blur="updateEducation($event, 'title', index)">{{
+                item.title
+              }}</span>
+              <EditButtons @remove-click="removeEducation(index)" :show-add-btn="false" />
             </div>
             <div class="d-flex justify-content-between">
               <div>
@@ -281,12 +326,14 @@ const updateEducationDescription = (event, index1, index2) => {
                 {{ desc }}
               </li>
             </ul>
+            <div v-if="!item.description.length">Add some description</div>
             <EditButtons
+              :show-remove-btn="!!item.description.length"
               @add-click="item.description.push('new entry')"
               @remove-click="item.description.pop()"
             />
           </div>
-        </div>
+        </ResumeSection>
       </div>
     </div>
   </main>
@@ -357,5 +404,12 @@ const updateEducationDescription = (event, index1, index2) => {
 
 .inner-section {
   margin-bottom: 20px;
+}
+
+.inner-section-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 </style>
