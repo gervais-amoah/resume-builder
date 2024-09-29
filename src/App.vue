@@ -1,8 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 import ResumeSection from '@/components/ResumeSection.vue'
-import SectionHeadline from './components/SectionHeadline.vue'
-import ContactInfo from './components/ContactInfo.vue'
+import SectionHeadline from '@/components/SectionHeadline.vue'
+import ContactInfo from '@/components/ContactInfo.vue'
+import EditButtons from '@/components/EditButtons.vue'
 
 const personnalInfo = ref({
   name: 'Michaela Scarn',
@@ -170,6 +171,7 @@ const updateEducationDescription = (event, index1, index2) => {
               {{ skill }}
             </li>
           </ul>
+          <EditButtons @add-click="skills.push('new entry')" @remove-click="skills.pop()" />
         </ResumeSection>
 
         <ResumeSection>
@@ -188,6 +190,7 @@ const updateEducationDescription = (event, index1, index2) => {
               {{ hlItem }}
             </li>
           </ul>
+          <EditButtons @add-click="highlights.push('new entry')" @remove-click="highlights.pop()" />
         </ResumeSection>
       </div>
 
@@ -237,6 +240,10 @@ const updateEducationDescription = (event, index1, index2) => {
                 {{ desc }}
               </li>
             </ul>
+            <EditButtons
+              @add-click="exp.description.push('new entry')"
+              @remove-click="exp.description.pop()"
+            />
           </div>
         </div>
 
@@ -274,6 +281,10 @@ const updateEducationDescription = (event, index1, index2) => {
                 {{ desc }}
               </li>
             </ul>
+            <EditButtons
+              @add-click="item.description.push('new entry')"
+              @remove-click="item.description.pop()"
+            />
           </div>
         </div>
       </div>
