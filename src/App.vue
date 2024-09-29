@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import ResumeSection from './ResumeSection.vue'
+import ResumeSection from '@/components/ResumeSection.vue'
 
 const personnalInfo = ref({
   name: 'Michaela Scarn',
