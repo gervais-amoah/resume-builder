@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import ResumeSection from '@/components/ResumeSection.vue'
 import SectionHeadline from './components/SectionHeadline.vue'
+import ContactInfo from './components/ContactInfo.vue'
 
 const personnalInfo = ref({
   name: 'Michaela Scarn',
@@ -97,14 +98,14 @@ const education = ref([
   }
 ])
 
-const updateHeadline = (val, index) => {
-  headlines.value[index] = val
+const updateHeadline = (newVal, index) => {
+  headlines.value[index] = newVal
 }
 const updatePersonnalInfo = (event, key) => {
   personnalInfo.value[key] = event.target.innerText
 }
-const updateContact = (event, index) => {
-  contact.value[index] = event.target.innerText
+const updateContact = (newVal, index) => {
+  contact.value[index] = newVal
 }
 const updateSkill = (event, key) => {
   contact.value[key] = event.target.innerText
@@ -151,11 +152,7 @@ const updateEducationDescription = (event, index1, index2) => {
             :headlines="headlines[1]"
             @headline-edited="(val) => updateHeadline(val, 1)"
           />
-          <ul>
-            <li contenteditable @blur="updateContact($event, 'phone')">{{ contact.phone }}</li>
-            <li contenteditable @blur="updateContact($event, 'email')">{{ contact.email }}</li>
-            <li contenteditable @blur="updateContact($event, 'address')">{{ contact.address }}</li>
-          </ul>
+          <ContactInfo :contact="contact" @edit="(val, key) => updateContact(val, key)" />
         </ResumeSection>
 
         <ResumeSection>
