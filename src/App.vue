@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import ResumeSection from './ResumeSection.vue'
 
 const personnalInfo = ref({
   name: 'Michaela Scarn',
@@ -110,12 +111,14 @@ const updateSkill = (event, key) => {
 const updateHighlights = (event, key) => {
   highlights.value[key] = event.target.innerText
 }
+
 const updateExperience = (event, key, index) => {
   experience.value[index][key] = event.target.innerText
 }
 const updateExperienceDescription = (event, index1, index2) => {
   experience.value[index1]['description'][index2] = event.target.innerText
 }
+
 const updateEducation = (event, key, index) => {
   education.value[index][key] = event.target.innerText
 }
@@ -128,7 +131,7 @@ const updateEducationDescription = (event, index1, index2) => {
   <main class="container">
     <div id="resume" class="d-flex">
       <div class="left-col">
-        <div class="resume-section">
+        <ResumeSection>
           <img :src="imageUrl" class="profile-pic" alt="profile picture" />
 
           <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 0)">
@@ -138,9 +141,9 @@ const updateEducationDescription = (event, index1, index2) => {
           <div contenteditable @blur="updatePersonnalInfo($event, 'introText')">
             {{ personnalInfo.introText }}
           </div>
-        </div>
+        </ResumeSection>
 
-        <div class="resume-section">
+        <ResumeSection>
           <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 1)">
             {{ headlines[1] }}
           </h4>
@@ -149,9 +152,9 @@ const updateEducationDescription = (event, index1, index2) => {
             <li contenteditable @blur="updateContact($event, 'email')">{{ contact.email }}</li>
             <li contenteditable @blur="updateContact($event, 'address')">{{ contact.address }}</li>
           </ul>
-        </div>
+        </ResumeSection>
 
-        <div class="resume-section">
+        <ResumeSection>
           <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 2)">
             {{ headlines[2] }}
           </h4>
@@ -165,9 +168,9 @@ const updateEducationDescription = (event, index1, index2) => {
               {{ skill }}
             </li>
           </ul>
-        </div>
+        </ResumeSection>
 
-        <div class="resume-section">
+        <ResumeSection>
           <h4 class="section-headline" contenteditable @blur="updateHeadline($event, 3)">
             {{ headlines[3] }}
           </h4>
@@ -181,7 +184,7 @@ const updateEducationDescription = (event, index1, index2) => {
               {{ hlItem }}
             </li>
           </ul>
-        </div>
+        </ResumeSection>
       </div>
 
       <div class="right-col">
@@ -202,7 +205,9 @@ const updateEducationDescription = (event, index1, index2) => {
             {{ headlines[4] }}
           </h4>
           <div v-for="(exp, index) in experience" :key="index" class="inner-section">
-            <div>{{ exp.title }}</div>
+            <div contenteditable="true" @blur="updateExperience($event, 'title', index)">
+              {{ exp.title }}
+            </div>
             <div class="d-flex justify-content-between">
               <div>
                 <span contenteditable="true" @blur="updateExperience($event, 'company', index)">{{
@@ -313,10 +318,6 @@ const updateEducationDescription = (event, index1, index2) => {
   margin-right: -30px;
   padding-right: 10px;
   color: var(--highlight-color-left);
-}
-
-.resume-section {
-  margin-bottom: 30px;
 }
 
 .personal-name {
