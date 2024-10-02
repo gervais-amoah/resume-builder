@@ -22,6 +22,9 @@ const emit = defineEmits(['addClick', 'removeClick'])
 </template>
 
 <style scoped>
+.edit-off .edit-btn {
+  display: none;
+}
 .edit-btn {
   min-width: 20px;
   height: 20px;

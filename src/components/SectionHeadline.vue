@@ -3,6 +3,10 @@ const props = defineProps({
   headlines: {
     type: String,
     required: true
+  },
+  editing: {
+    type: Boolean,
+    required: true
   }
 })
 const emit = defineEmits(['headlineEdited'])
@@ -13,7 +17,7 @@ const notifyParent = (event) => {
 </script>
 
 <template>
-  <h4 class="section-headline" contenteditable @blur="notifyParent">
+  <h4 class="section-headline" :contenteditable="editing" @blur="notifyParent">
     {{ props.headlines }}
   </h4>
 </template>

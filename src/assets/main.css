@@ -24,3 +24,9 @@ body {
 .justify-content-between {
   justify-content: space-between;
 }
+
+[contenteditable='true'] {
+  border-radius: 2px;
+  background-color: #cacaca71;
+  padding: 2px;
+}
