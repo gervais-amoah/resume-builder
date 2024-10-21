@@ -5,6 +5,7 @@ import SectionHeadline from '@/components/SectionHeadline.vue'
 import ContactInfo from '@/components/ContactInfo.vue'
 import EditButtons from '@/components/EditButtons.vue'
 import EditToggle from '@/components/EditToggle.vue'
+import SidebarMenu from '@/components/SidebarMenu.vue'
 
 const personnalInfo = ref({
   name: 'Michaela Scarn',
@@ -164,7 +165,9 @@ const editModeToggled = (isChecked) => {
 
 <template>
   <main class="container">
-    <EditToggle @edit-mode-toggled="editModeToggled" />
+    <SidebarMenu>
+      <EditToggle @edit-mode-toggled="editModeToggled" />
+    </SidebarMenu>
 
     <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }">
       <div class="left-col">
@@ -372,10 +375,27 @@ const editModeToggled = (isChecked) => {
   box-shadow:
     rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  width: 210mm;
+  margin-left: auto;
+}
+
+#resume.edit-off {
   /* DIN A4 standard paper size. commonly used for resumes
   For North America letter size use width: 8.5in; height: 11in; */
   height: 297mm;
-  width: 210mm;
+}
+
+@media (min-width: 1350px) {
+  #resume {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1600px) {
+  #resume {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .left-col {
