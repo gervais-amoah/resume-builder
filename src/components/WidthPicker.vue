@@ -49,6 +49,7 @@ const widthValue = computed(() => props.defaultWidth + '%')
 
 input[type='range'] {
   -webkit-appearance: none;
+  appearance: none;
   height: 8px;
   background: #797777; /* Track color */
   border-radius: 5px;
