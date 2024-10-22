@@ -7,6 +7,7 @@ import EditButtons from '@/components/EditButtons.vue'
 import EditToggle from '@/components/EditToggle.vue'
 import SidebarMenu from '@/components/SidebarMenu.vue'
 import ColorInput from './components/ColorInput.vue'
+import WidthPicker from './components/WidthPicker.vue'
 
 const colors = ref({
   left: {
@@ -21,6 +22,10 @@ const colors = ref({
   }
 })
 
+const leftColumnWidth = ref(30)
+const leftColumnWidthValue = computed(() => leftColumnWidth.value + '%')
+const rightColumnWidthValue = computed(() => 100 - leftColumnWidth.value + '%')
+
 const cssVariables = computed(() => {
   return {
     '--highlight-color-left': colors.value.left.highlight,
@@ -28,7 +33,9 @@ const cssVariables = computed(() => {
     '--text-color-left': colors.value.left.text,
     '--highlight-color-right': colors.value.right.highlight,
     '--background-color-right': colors.value.right.background,
-    '--text-color-right': colors.value.right.text
+    '--text-color-right': colors.value.right.text,
+    '--left-column-width': leftColumnWidthValue.value,
+    '--right-column-width': rightColumnWidthValue.value
   }
 })
 
@@ -192,6 +199,7 @@ const editModeToggled = (isChecked) => {
   <main class="container">
     <SidebarMenu>
       <EditToggle @edit-mode-toggled="editModeToggled" />
+      <hr />
       <div>Left column</div>
       <ColorInput
         label="Highlight color"
@@ -208,7 +216,6 @@ const editModeToggled = (isChecked) => {
         label="Background color"
         @color-changed="(event) => (colors.left.background = event)"
       />
-      <hr />
       <div>Right column</div>
       <ColorInput
         :default-color="colors.right.highlight"
@@ -225,6 +232,9 @@ const editModeToggled = (isChecked) => {
         label="Background color"
         @color-changed="(event) => (colors.right.background = event)"
       />
+      <hr />
+      Left column width:
+      <WidthPicker :defaultWidth="leftColumnWidth" @width-changed="leftColumnWidth = $event" />
     </SidebarMenu>
 
     <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }" :style="cssVariables">
@@ -461,14 +471,14 @@ const editModeToggled = (isChecked) => {
   background-color: var(--background-color-left);
   color: var(--text-color-left);
   border-right: 1px solid var(--highlight-color-left);
-  width: 30%;
+  width: var(--left-column-width);
   padding: 30px;
 }
 
 .right-col {
   background-color: var(--background-color-right);
   color: var(--text-color-right);
-  width: 70%;
+  width: var(--right-column-width);
   padding: 30px;
 }
 
