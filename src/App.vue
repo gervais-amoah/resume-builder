@@ -1,12 +1,13 @@
 <script setup>
-import { computed, ref } from 'vue'
-import ResumeSection from '@/components/ResumeSection.vue'
-import SectionHeadline from '@/components/SectionHeadline.vue'
 import ContactInfo from '@/components/ContactInfo.vue'
 import EditButtons from '@/components/EditButtons.vue'
 import EditToggle from '@/components/EditToggle.vue'
+import ResumeSection from '@/components/ResumeSection.vue'
+import SectionHeadline from '@/components/SectionHeadline.vue'
 import SidebarMenu from '@/components/SidebarMenu.vue'
+import { computed, ref } from 'vue'
 import ColorInput from './components/ColorInput.vue'
+import SelectInput from './components/SelectInput.vue'
 import WidthPicker from './components/WidthPicker.vue'
 
 const colors = ref({
@@ -26,6 +27,9 @@ const leftColumnWidth = ref(30)
 const leftColumnWidthValue = computed(() => leftColumnWidth.value + '%')
 const rightColumnWidthValue = computed(() => 100 - leftColumnWidth.value + '%')
 
+const imageShape = ref('round')
+const headlineWeight = ref('400')
+
 const cssVariables = computed(() => {
   return {
     '--highlight-color-left': colors.value.left.highlight,
@@ -35,7 +39,9 @@ const cssVariables = computed(() => {
     '--background-color-right': colors.value.right.background,
     '--text-color-right': colors.value.right.text,
     '--left-column-width': leftColumnWidthValue.value,
-    '--right-column-width': rightColumnWidthValue.value
+    '--right-column-width': rightColumnWidthValue.value,
+    '--headline-weight': headlineWeight.value,
+    '--image-shape': imageShape.value
   }
 })
 
@@ -233,18 +239,42 @@ const editModeToggled = (isChecked) => {
         @color-changed="(event) => (colors.right.background = event)"
       />
       <hr />
-
       <WidthPicker
         label="Left column width"
         :defaultWidth="leftColumnWidth"
         @width-changed="leftColumnWidth = $event"
+      />
+      <hr />
+      <SelectInput
+        label="Headlines thickness"
+        @update-selection="headlineWeight = $event"
+        :default-option="headlineWeight"
+        :options="[
+          { name: 'Thin', value: '300' },
+          { name: 'Medium', value: '400' },
+          { name: 'Thick', value: '600' }
+        ]"
+      />
+      <SelectInput
+        label="Photo shape"
+        @update-selection="imageShape = $event"
+        :default-option="imageShape"
+        :options="[
+          { name: 'Round', value: 'round' },
+          { name: 'Square', value: 'square' }
+        ]"
       />
     </SidebarMenu>
 
     <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }" :style="cssVariables">
       <div class="left-col">
         <ResumeSection>
-          <img :src="imageUrl" class="profile-pic" alt="profile picture" />
+          <img
+            :src="imageUrl"
+            class="profile-pic"
+            :class="{ cirle: imageShape === 'round' }"
+            alt="profile picture"
+          />
 
           <SectionHeadline
             :editing="editing"
@@ -515,12 +545,17 @@ const editModeToggled = (isChecked) => {
   display: block;
   width: 160px;
   height: 160px;
-  border: 5px solid var(--highlight-color-left);
+  border: 2px solid var(--highlight-color-left);
   margin-bottom: 20px;
   object-fit: cover;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 5px;
+}
+
+.cirle {
   border-radius: 50%;
+  border: 5px solid var(--highlight-color-left);
 }
 
 .inner-section {
