@@ -10,11 +10,11 @@ const onToggle = (event) => {
 
 <template>
   <label class="switch-wrapper">
+    <span>Edit mode</span>
     <div class="switch">
       <input type="checkbox" checked @click="onToggle" />
       <span class="slider round"></span>
     </div>
-    <span>Edit mode</span>
   </label>
 </template>
 

@@ -2,6 +2,10 @@
 import { computed } from 'vue'
 
 const props = defineProps({
+  label: {
+    type: String,
+    default: 'Percentage'
+  },
   defaultWidth: {
     type: Number,
     default: 30
@@ -13,6 +17,7 @@ const widthValue = computed(() => props.defaultWidth + '%')
 </script>
 
 <template>
+  <div>{{ label }}</div>
   <div class="wrapper">
     {{ widthValue }}
     <input

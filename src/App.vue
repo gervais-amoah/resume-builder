@@ -216,7 +216,7 @@ const editModeToggled = (isChecked) => {
         label="Background color"
         @color-changed="(event) => (colors.left.background = event)"
       />
-      <div>Right column</div>
+      <div style="margin-top: 0.7rem">Right column</div>
       <ColorInput
         :default-color="colors.right.highlight"
         label="Highlight color"
@@ -233,8 +233,12 @@ const editModeToggled = (isChecked) => {
         @color-changed="(event) => (colors.right.background = event)"
       />
       <hr />
-      Left column width:
-      <WidthPicker :defaultWidth="leftColumnWidth" @width-changed="leftColumnWidth = $event" />
+
+      <WidthPicker
+        label="Left column width"
+        :defaultWidth="leftColumnWidth"
+        @width-changed="leftColumnWidth = $event"
+      />
     </SidebarMenu>
 
     <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }" :style="cssVariables">
