@@ -1,11 +1,36 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import ResumeSection from '@/components/ResumeSection.vue'
 import SectionHeadline from '@/components/SectionHeadline.vue'
 import ContactInfo from '@/components/ContactInfo.vue'
 import EditButtons from '@/components/EditButtons.vue'
 import EditToggle from '@/components/EditToggle.vue'
 import SidebarMenu from '@/components/SidebarMenu.vue'
+import ColorInput from './components/ColorInput.vue'
+
+const colors = ref({
+  left: {
+    highlight: '#82c0cc',
+    text: '#ffffff',
+    background: '#3943b7'
+  },
+  right: {
+    highlight: '#3943b7',
+    text: '#000505',
+    background: '#ffffff'
+  }
+})
+
+const cssVariables = computed(() => {
+  return {
+    '--highlight-color-left': colors.value.left.highlight,
+    '--background-color-left': colors.value.left.background,
+    '--text-color-left': colors.value.left.text,
+    '--highlight-color-right': colors.value.right.highlight,
+    '--background-color-right': colors.value.right.background,
+    '--text-color-right': colors.value.right.text
+  }
+})
 
 const personnalInfo = ref({
   name: 'Michaela Scarn',
@@ -167,9 +192,42 @@ const editModeToggled = (isChecked) => {
   <main class="container">
     <SidebarMenu>
       <EditToggle @edit-mode-toggled="editModeToggled" />
+      <div>Left column</div>
+      <ColorInput
+        label="Highlight color"
+        :default-color="colors.left.highlight"
+        @color-changed="(event) => (colors.left.highlight = event)"
+      />
+      <ColorInput
+        :default-color="colors.left.text"
+        label="Text color"
+        @color-changed="(event) => (colors.left.text = event)"
+      />
+      <ColorInput
+        :default-color="colors.left.background"
+        label="Background color"
+        @color-changed="(event) => (colors.left.background = event)"
+      />
+      <hr />
+      <div>Right column</div>
+      <ColorInput
+        :default-color="colors.right.highlight"
+        label="Highlight color"
+        @color-changed="(event) => (colors.right.highlight = event)"
+      />
+      <ColorInput
+        :default-color="colors.right.text"
+        label="Text color"
+        @color-changed="(event) => (colors.right.text = event)"
+      />
+      <ColorInput
+        :default-color="colors.right.background"
+        label="Background color"
+        @color-changed="(event) => (colors.right.background = event)"
+      />
     </SidebarMenu>
 
-    <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }">
+    <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }" :style="cssVariables">
       <div class="left-col">
         <ResumeSection>
           <img :src="imageUrl" class="profile-pic" alt="profile picture" />
@@ -195,6 +253,7 @@ const editModeToggled = (isChecked) => {
           <ContactInfo
             :editing="editing"
             :contact="contact"
+            :icon-color="colors.left.highlight"
             @edit="(val, key) => updateContact(val, key)"
           />
         </ResumeSection>
