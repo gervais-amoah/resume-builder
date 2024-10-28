@@ -27,7 +27,19 @@ const changeImage = (e) => {
 </template>
 
 <style scoped>
-input {
-  margin-top: 5px;
+input[type='file'] {
+  display: none;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid var(--highlight-color-left);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background-color: var(--background-color-left);
+  color: var(--text-color-left);
 }
 </style>
