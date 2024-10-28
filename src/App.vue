@@ -10,6 +10,7 @@ import ColorInput from './components/ColorInput.vue'
 import ImgUpload from './components/ImgUpload.vue'
 import SelectInput from './components/SelectInput.vue'
 import WidthPicker from './components/WidthPicker.vue'
+import ExportPdf from './components/ExportPdf.vue'
 
 const colors = ref({
   left: {
@@ -211,6 +212,9 @@ const toggleImageDisplay = (isChecked) => {
   <main class="container">
     <SidebarMenu>
       <ToggleSwitch @switch-toogled="editModeToggled" label="Edit mode" />
+
+      <ExportPdf v-show="!editing" />
+
       <hr />
       <div>Left column</div>
       <ColorInput

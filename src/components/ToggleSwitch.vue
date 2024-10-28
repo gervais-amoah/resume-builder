@@ -5,7 +5,7 @@ defineProps({
     default: 'Edit mode'
   }
 })
-const emit = defineEmits(['editModeToggled'])
+const emit = defineEmits(['switchToogled'])
 
 const onToggle = (event) => {
   emit('switchToogled', event.target.checked)
