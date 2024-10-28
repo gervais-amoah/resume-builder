@@ -215,61 +215,72 @@ const toggleImageDisplay = (isChecked) => {
 
       <ExportPdf v-show="!editing" />
 
-      <hr />
-      <div>Left column</div>
-      <ColorInput
-        label="Highlight color"
-        :default-color="colors.left.highlight"
-        @color-changed="(event) => (colors.left.highlight = event)"
-      />
-      <ColorInput
-        :default-color="colors.left.text"
-        label="Text color"
-        @color-changed="(event) => (colors.left.text = event)"
-      />
-      <ColorInput
-        :default-color="colors.left.background"
-        label="Background color"
-        @color-changed="(event) => (colors.left.background = event)"
-      />
-      <div style="margin-top: 0.7rem">Right column</div>
-      <ColorInput
-        :default-color="colors.right.highlight"
-        label="Highlight color"
-        @color-changed="(event) => (colors.right.highlight = event)"
-      />
-      <ColorInput
-        :default-color="colors.right.text"
-        label="Text color"
-        @color-changed="(event) => (colors.right.text = event)"
-      />
-      <ColorInput
-        :default-color="colors.right.background"
-        label="Background color"
-        @color-changed="(event) => (colors.right.background = event)"
-      />
-      <hr />
-      <WidthPicker
-        label="Left column width"
-        :defaultWidth="leftColumnWidth"
-        @width-changed="leftColumnWidth = $event"
-      />
-      <hr />
-      <SelectInput
-        label="Headlines thickness"
-        @update-selection="headlineWeight = $event"
-        :default-option="headlineWeight"
-        :options="[
-          { name: 'Thin', value: '300' },
-          { name: 'Medium', value: '400' },
-          { name: 'Thick', value: '600' }
-        ]"
-      />
-
-      <hr />
-      <ToggleSwitch @switch-toogled="toggleImageDisplay" label="Show image" />
-
-      <div v-show="showImage">
+      <div v-show="editing">
+        <hr />
+        <h2>Left column</h2>
+        <ColorInput
+          label="Highlight color"
+          :default-color="colors.left.highlight"
+          @color-changed="(event) => (colors.left.highlight = event)"
+        />
+        <ColorInput
+          :default-color="colors.left.text"
+          label="Text color"
+          @color-changed="(event) => (colors.left.text = event)"
+        />
+        <ColorInput
+          :default-color="colors.left.background"
+          label="Background color"
+          @color-changed="(event) => (colors.left.background = event)"
+        />
+      </div>
+      <div v-show="editing">
+        <hr />
+        <h2>Right column</h2>
+        <ColorInput
+          :default-color="colors.right.highlight"
+          label="Highlight color"
+          @color-changed="(event) => (colors.right.highlight = event)"
+        />
+        <ColorInput
+          :default-color="colors.right.text"
+          label="Text color"
+          @color-changed="(event) => (colors.right.text = event)"
+        />
+        <ColorInput
+          :default-color="colors.right.background"
+          label="Background color"
+          @color-changed="(event) => (colors.right.background = event)"
+        />
+      </div>
+      <div v-show="editing">
+        <hr />
+        <h2>General</h2>
+        <WidthPicker
+          label="Left column width"
+          :defaultWidth="leftColumnWidth"
+          @width-changed="leftColumnWidth = $event"
+        />
+        <SelectInput
+          label="Headlines thickness"
+          @update-selection="headlineWeight = $event"
+          :default-option="headlineWeight"
+          :options="[
+            { name: 'Thin', value: '300' },
+            { name: 'Medium', value: '400' },
+            { name: 'Thick', value: '600' }
+          ]"
+        />
+        <ToggleSwitch @switch-toogled="toggleImageDisplay" label="Show image" />
+        <SelectInput
+          label="Photo shape"
+          @update-selection="imageShape = $event"
+          :default-option="imageShape"
+          :options="[
+            { name: 'Round', value: 'round' },
+            { name: 'Square', value: 'square' }
+          ]"
+        />
         <SelectInput
           label="Photo shape"
           @update-selection="imageShape = $event"

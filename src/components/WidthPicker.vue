@@ -37,7 +37,7 @@ const widthValue = computed(() => props.defaultWidth + '%')
   display: flex;
   align-items: center;
   gap: 15px; /* Space between the value and the input */
-  margin-top: 10px;
+  margin: 10px 0 20px;
   padding-right: 30px;
 }
 
