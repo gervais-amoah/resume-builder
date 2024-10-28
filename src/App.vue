@@ -7,6 +7,7 @@ import SectionHeadline from '@/components/SectionHeadline.vue'
 import SidebarMenu from '@/components/SidebarMenu.vue'
 import { computed, ref } from 'vue'
 import ColorInput from './components/ColorInput.vue'
+import ImgUpload from './components/ImgUpload.vue'
 import SelectInput from './components/SelectInput.vue'
 import WidthPicker from './components/WidthPicker.vue'
 
@@ -264,6 +265,8 @@ const editModeToggled = (isChecked) => {
           { name: 'Square', value: 'square' }
         ]"
       />
+
+      <ImgUpload @image-changed="imageUrl = $event" />
     </SidebarMenu>
 
     <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }" :style="cssVariables">
