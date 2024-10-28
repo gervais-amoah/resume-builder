@@ -1,16 +1,20 @@
 <script setup>
-import { defineEmits } from 'vue'
-
+defineProps({
+  label: {
+    type: String,
+    default: 'Edit mode'
+  }
+})
 const emit = defineEmits(['editModeToggled'])
 
 const onToggle = (event) => {
-  emit('editModeToggled', event.target.checked)
+  emit('switchToogled', event.target.checked)
 }
 </script>
 
 <template>
   <label class="switch-wrapper">
-    <span>Edit mode</span>
+    <span>{{ label }}</span>
     <div class="switch">
       <input type="checkbox" checked @click="onToggle" />
       <span class="slider round"></span>

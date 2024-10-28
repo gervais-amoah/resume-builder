@@ -26,4 +26,8 @@ const changeImage = (e) => {
   </label>
 </template>
 
-<style scoped></style>
+<style scoped>
+input {
+  margin-top: 5px;
+}
+</style>

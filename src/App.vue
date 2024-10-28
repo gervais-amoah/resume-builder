@@ -1,7 +1,7 @@
 <script setup>
 import ContactInfo from '@/components/ContactInfo.vue'
 import EditButtons from '@/components/EditButtons.vue'
-import EditToggle from '@/components/EditToggle.vue'
+import ToggleSwitch from '@/components/ToggleSwitch.vue'
 import ResumeSection from '@/components/ResumeSection.vue'
 import SectionHeadline from '@/components/SectionHeadline.vue'
 import SidebarMenu from '@/components/SidebarMenu.vue'
@@ -200,12 +200,17 @@ const editing = ref(true)
 const editModeToggled = (isChecked) => {
   editing.value = isChecked
 }
+
+const showImage = ref(true)
+const toggleImageDisplay = (isChecked) => {
+  showImage.value = isChecked
+}
 </script>
 
 <template>
   <main class="container">
     <SidebarMenu>
-      <EditToggle @edit-mode-toggled="editModeToggled" />
+      <ToggleSwitch @switch-toogled="editModeToggled" label="Edit mode" />
       <hr />
       <div>Left column</div>
       <ColorInput
@@ -256,23 +261,30 @@ const editModeToggled = (isChecked) => {
           { name: 'Thick', value: '600' }
         ]"
       />
-      <SelectInput
-        label="Photo shape"
-        @update-selection="imageShape = $event"
-        :default-option="imageShape"
-        :options="[
-          { name: 'Round', value: 'round' },
-          { name: 'Square', value: 'square' }
-        ]"
-      />
 
-      <ImgUpload @image-changed="imageUrl = $event" />
+      <hr />
+      <ToggleSwitch @switch-toogled="toggleImageDisplay" label="Show image" />
+
+      <div v-show="showImage">
+        <SelectInput
+          label="Photo shape"
+          @update-selection="imageShape = $event"
+          :default-option="imageShape"
+          :options="[
+            { name: 'Round', value: 'round' },
+            { name: 'Square', value: 'square' }
+          ]"
+        />
+
+        <ImgUpload @image-changed="imageUrl = $event" />
+      </div>
     </SidebarMenu>
 
     <div id="resume" class="d-flex" :class="{ 'edit-off': !editing }" :style="cssVariables">
       <div class="left-col">
         <ResumeSection>
           <img
+            v-show="showImage"
             :src="imageUrl"
             class="profile-pic"
             :class="{ cirle: imageShape === 'round' }"
