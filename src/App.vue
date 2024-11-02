@@ -211,7 +211,7 @@ const toggleImageDisplay = (isChecked) => {
 <template>
   <main class="container">
     <SidebarMenu>
-      <ToggleSwitch @switch-toogled="editModeToggled" label="Edit mode" />
+      <ToggleSwitch @switch-toogled="editModeToggled" label="Edit mode" off-label="Export Mode" />
 
       <ExportPdf v-show="!editing" />
 

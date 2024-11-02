@@ -3,6 +3,10 @@ defineProps({
   label: {
     type: String,
     default: 'Edit mode'
+  },
+  offLabel: {
+    type: String,
+    default: null
   }
 })
 const emit = defineEmits(['switchToogled'])
@@ -14,11 +18,12 @@ const onToggle = (event) => {
 
 <template>
   <label class="switch-wrapper">
-    <span>{{ label }}</span>
+    <span v-if="offLabel">{{ offLabel }}</span>
     <div class="switch">
       <input type="checkbox" checked @click="onToggle" />
       <span class="slider round"></span>
     </div>
+    <span>{{ label }}</span>
   </label>
 </template>
 
