@@ -53,7 +53,7 @@ const personnalInfo = ref({
   introText:
     'From data cleaning to data analysis to machine learning, I am passionate about everything data.'
 })
-const imageUrl = ref('/profile_pic.jpg')
+const imageUrl = ref('/profile.png')
 const headlines = ref([
   'About me',
   'Contact',
